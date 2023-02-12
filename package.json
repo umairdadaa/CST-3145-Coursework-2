@@ -1,22 +1,20 @@
 {
-  "name": "web-app-cst-3145-",
+  "name": "cst-3145-cw2",
   "version": "1.0.0",
-  "description": "- https://github.com/umairdadaa/Web-App-CST-3145-",
+  "description": "https://github.com/umairdadaa/CST-3145-CW2",
   "main": "JS/app.js",
   "scripts": {
-    "start": "node JS/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+    "start": "node JS/app.js"  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/umairdadaa/Web-App-CST-3145-.git"
+    "url": "git+https://github.com/umairdadaa/CST-3145-CW2"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/umairdadaa/Web-App-CST-3145-/issues"
+    "url": "https://github.com/umairdadaa/CST-3145-CW2/issues"
   },
-  "homepage": "https://github.com/umairdadaa/Web-App-CST-3145-#readme",
+  "homepage": "https://github.com/umairdadaa/CST-3145-CW2#readme",
   "dependencies": {
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
