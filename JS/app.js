@@ -2,6 +2,9 @@ const { ObjectID } = require("bson");
 const express = require("express");
 const app = express();
 
+const path = require('path')
+const fs = require('fs');
+
 const donenv = require("dotenv").config();
 
 app.use(express.json());
@@ -35,11 +38,11 @@ app.use((req, res, next) => {
 
 const MongoClient = require("mongodb").MongoClient;
 
+
 let db;
 
 MongoClient.connect(process.env.CONNECTION_URL, (err, client) => {
-    db = client.db("webstore");
-}
+    db = client.db("webstore");}
 );
 
 app.get("/", (req, res, next) => {
@@ -75,6 +78,35 @@ app.get("/collection/:collectionName/:search", (req, res, next) => {
     });
 });
 
+
+// app.use('/static', function (req, res, next) {
+//     // Uses path.join to find the path where the file should be
+//     var filePath = path.join(__dirname, 'static', req.url);
+//     // Built-in fs.stat gets info about a file
+//     fs.stat(filePath, function (err, fileInfo) {
+//         if (err) {
+//             next();
+//             return;
+//         }
+//         if (fileInfo.isFile()) res.sendFile(filePath);
+//         else next();
+//     })
+// })
+
+app.use('/static', function (req, res, next) {
+    // Uses path.join to find the path where the file should be
+    var filePath = path.join(__dirname, 'static', "English.jpg");
+    // Built-in fs.stat gets info about a file
+    fs.stat(filePath, function (err, fileInfo) {
+        if (err) {
+            next();
+            return;
+        }
+        if (fileInfo.isFile()) res.sendFile(filePath);
+        else next();
+    })
+})
+
 app.get('/collection/:collectionName/:sortby/:order',(req,res,next)=> {
     console.log("incomming request for sorted data :{ " + req.params.sortby + " , " + req.params.order + " }");
     req.collection.find({},{sort:[[req.params.sortby , parseInt(req.params.order)]]})
@@ -84,6 +116,11 @@ app.get('/collection/:collectionName/:sortby/:order',(req,res,next)=> {
         res.send(results);
     })
 })
+
+app.use('/images',express.static(path.join(__dirname,'../img')));
+app.use((req,res, next) => {
+    res.status(404).send('Image not found.');
+});
 
 app.get("/collection/:collectionName/:id", (req, res, next) => {
     req.collection.findOne({ _id: new ObjectID(req.params.id) }, (e, result) => {

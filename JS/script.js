@@ -45,7 +45,7 @@ const app = new Vue({
     fetch("http://localhost:3000/collection/products")
       .then((response) => response.json())
       .then((data) => {
-        this.sortProducts(data);
+        this.products = data;
       });
 
 

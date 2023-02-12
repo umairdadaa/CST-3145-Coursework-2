@@ -4,7 +4,8 @@
   "description": "https://github.com/umairdadaa/CST-3145-CW2",
   "main": "JS/app.js",
   "scripts": {
-    "start": "node JS/app.js"  },
+    "start": "nodemon app.js",
+    "watch": "nodemon app.js"  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/umairdadaa/CST-3145-CW2"
