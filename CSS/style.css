@@ -5,6 +5,7 @@
   margin: 0%;
   padding-top: 30px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   padding: 20px 30px;
   align-items: center;
@@ -27,6 +28,7 @@
   height: 70vh;
   display: flex;
   flex-direction: column;
+  /* flex-wrap: wrap; */
   justify-content: center;
   align-items: center;
   background-image: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../img/hero.jpeg');
@@ -83,10 +85,6 @@
   background-color: #4e115a !important;
 }
 
-
-
-
-
 .lesson-box {
   width: 100%;
   border: 1px solid;
@@ -100,9 +98,9 @@
 
 .lesssonbox {
   padding: 30px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-gap: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 button[disabled] {
@@ -299,6 +297,8 @@ span.price {
 }
 
 .form-select {
+  display: flex;
+  flex-wrap: wrap;
   background:  #B300FF;
   padding: 10px;
   color: white;

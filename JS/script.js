@@ -1,3 +1,5 @@
+// const { type } = require("os");
+
 const app = new Vue({
   el: "#app",
   data: () => {
@@ -7,7 +9,7 @@ const app = new Vue({
       search: "",
       sortBy: "subject",
       sortDirection: "asc",
-      products: products,
+      products: [],
       checkout: [],
       order: {
         name: "",
@@ -28,7 +30,38 @@ const app = new Vue({
         SHJ: "Sharjah",
         UMM: "Umm Al Quwain",
       },
+      sortByOptions: {
+        direction: "desc",
+        type : "space",
+      },
+
+
     };
+  },
+
+  // fetch products from the http://localhost:3000/collection/products
+
+  created() {
+    fetch("http://localhost:3000/collection/products")
+      .then((response) => response.json())
+      .then((data) => {
+        this.sortProducts(data);
+      });
+
+
+  },
+
+  watch: {
+    search: function (val) {
+      fetch("http://localhost:3000/collection/products/" + this.search)
+        .then(
+          function (response){
+            response.json()
+            console.log(response)
+            this.products = response
+          }
+        )
+    },
   },
 
   methods: {
@@ -44,6 +77,7 @@ const app = new Vue({
         product.subject + " has been added to your cart!",
         "success"
       );
+      console.log("Added product  " + product._id);
       this.products.forEach((item) => {
         if (item.id === product.id) {
           item.space -= 1;
@@ -105,11 +139,63 @@ const app = new Vue({
           method: "Home",
           gift: false,
         };
+        this.finalorder = {
+          name: this.checkout[0].name,
+          email: this.checkout[0].email,
+          address: this.checkout[0].address,
+          city: this.checkout[0].city,
+          zip: this.checkout[0].zip,
+          state: this.checkout[0].state,
+          method: this.checkout[0].method,
+          gift: this.checkout[0].gift,
+          products: this.cart,
+          total: this.cart.reduce((acc, item) => acc + item.price, 0) + " AED",
+        };
+        console.log(this.finalorder);
         Swal.fire(
           "Order Submitted!",
           "Your order has been submitted!",
           "success"
         );
+        // push finalorder to http://localhost:3000/collection/orders
+        fetch("http://localhost:3000/collection/orders", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(this.finalorder),
+        })
+          .then((response) => {
+            console.log(response);
+            return response.text();
+          })
+          .then((data) => {
+            // turn response text to json
+            // resolve(data ? JSON.parse(data) : {})
+            console.log("Success:", data);
+            console.log(this.finalorder);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          })
+          
+          const tempObj = {space: this.cart[0].space}
+          fetch("http://localhost:3000/collection/products/" + this.cart[0]._id, {	
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(tempObj),
+          })
+            .then((response) => {
+              console.log(response);
+              return response.text();
+            })
+            .then((data) => {
+              console.log("Success:", data);
+              console.log(this.finalorder);
+            })
+
         this.cart = [];
         this.navigateTo("products");
       } else {
@@ -133,43 +219,58 @@ const app = new Vue({
         );
       }
     },
+
+    sortProducts() {
+      let url = '';
+      if (this.sortByOptions.type == "price") {
+        if (this.sortByOptions.direction == "asc") {
+          url = "http://localhost:3000/collection/products/price/1";
+        } else if (this.sortByOptions.direction == "desc") {
+          url = "http://localhost:3000/collection/products/price/-1";
+        }
+      } else if (this.sortByOptions.type == "subject") {
+        if (this.sortByOptions.direction == "asc") {
+          url = "http://localhost:3000/collection/products/subject/1";
+        } else if (this.sortByOptions.direction == "desc") {
+          url = "http://localhost:3000/collection/products/subject/-1";
+        }
+      } else if (this.sortByOptions.type == "location") {
+        if (this.sortByOptions.direction == "asc") {
+          url = "http://localhost:3000/collection/products/location/1";
+        } else if (this.sortByOptions.direction == "desc") {
+          url = "http://localhost:3000/collection/products/location/-1";
+        }
+      } else if (this.sortByOptions.type == "space") {
+        if (this.sortByOptions.direction == "asc") {
+          url = "http://localhost:3000/collection/products/space/1";
+        } else if (this.sortByOptions.direction == "desc") {
+          url = "http://localhost:3000/collection/products/space/-1";
+        }
+      }
+
+      fetch(url)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          this.products = data;
+        });
+      
+    },
   },
   computed: {
     filteredProducts() {
       if (this.search) {
+        let search = this.search.toLowerCase();
         return this.products.filter((product) => {
-          return (
-            product.subject.toLowerCase().includes(this.search.toLowerCase()) ||
-            product.location.toLowerCase().includes(this.search.toLowerCase())
-          );
+        return product.subject.toLowerCase().match(search) || product.location.toLowerCase().match(search);
         });
-      } else if (this.sortBy === "subject") {
-        return this.products.sort((a, b) => {
-          if (this.sortDirection === "asc") {
-            return a.subject.localeCompare(b.subject);
-          } else if (this.sortDirection === "desc") {
-            return b.subject.localeCompare(a.subject);
-          }
-        });
-      } else if (this.sortBy === "price") {
-        return this.products.sort((a, b) => {
-          if (this.sortDirection === "asc") {
-            return a.price - b.price;
-          } else if (this.sortDirection === "desc") {
-            return b.price - a.price;
-          }
-        });
-      } else if (this.sortBy === "space") {
-        return this.products.sort((a, b) => {
-          if (this.sortDirection === "asc") {
-            return a.space - b.space;
-          } else if (this.sortDirection === "desc") {
-            return b.space - a.space;
-          }
-        });
-      } else {
+      }
+    
+      else {
         return this.products;
       }
+
     },
 
     cartTotal() {

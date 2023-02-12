@@ -11,11 +11,14 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap"
         rel="stylesheet">
+    <link href="img/favicon.ico" rel="icon" type="image/x-icon" />
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10"></script>
     <script src="https://kit.fontawesome.com/a034fe5f30.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="CSS/style.css">
+    
+
 </head>
 
 <body>
@@ -40,8 +43,8 @@
                         <input
                         class="search-widget"
                         type="text" placeholder="Search" v-model="search">
-                        <select class="form-select" v-model="sortBy"
-                            style="width: 20%;">
+                        <select class="form-select" v-model="sortByOptions.type"
+                            style="width: 20%;" @click="sortProducts">
                             <option value="subject"> Alphabatically</option>
                             <option value="price">Price</option>
                             <option value="space">Availability</option>
@@ -49,8 +52,8 @@
                         </select>
                     </div>
                     <div class="sort-container">
-                        <input type="radio" value="asc" v-model="sortDirection"> Ascending
-                    <input type="radio" value="desc" v-model="sortDirection"> Descending
+                        <input type="radio" value="asc" v-model="sortByOptions.direction" @click="sortProducts"> Ascending
+                        <input type="radio" value="desc" v-model="sortByOptions.direction" @click="sortProducts"> Descending
                     </div>
                 </div>
 
