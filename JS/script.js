@@ -4,7 +4,7 @@ const app = new Vue({
   el: "#app",
   data: () => {
     return {
-      page: "products",
+      page: "home",
       cart: [],
       search: "",
       sortBy: "subject",
@@ -62,6 +62,7 @@ const app = new Vue({
           }
         )
     },
+        
   },
 
   methods: {
@@ -124,7 +125,6 @@ const app = new Vue({
         this.order.name &&
         this.order.email &&
         this.order.address &&
-        this.order.city &&
         this.order.zip &&
         this.order.state
       ) {
@@ -133,7 +133,6 @@ const app = new Vue({
           name: "",
           email: "",
           address: "",
-          city: "",
           zip: "",
           state: "",
           method: "Home",
@@ -143,7 +142,6 @@ const app = new Vue({
           name: this.checkout[0].name,
           email: this.checkout[0].email,
           address: this.checkout[0].address,
-          city: this.checkout[0].city,
           zip: this.checkout[0].zip,
           state: this.checkout[0].state,
           method: this.checkout[0].method,
@@ -170,7 +168,6 @@ const app = new Vue({
             return response.text();
           })
           .then((data) => {
-            // turn response text to json
             // resolve(data ? JSON.parse(data) : {})
             console.log("Success:", data);
             console.log(this.finalorder);
@@ -257,6 +254,23 @@ const app = new Vue({
         });
       
     },
+
+    searchProducts() {
+      if (this.search.length > 0) {
+        fetch(`http://localhost:3000/collection/products/search/"${val}`)
+
+        .then(res => {
+            return res.json()
+        })
+        .then(data => {
+            this.products = data
+        })
+        .catch(err => {
+            this.products = []
+            console.log(`unable to get lessons: ${err}`)
+        })
+            }
+        },
   },
   computed: {
     filteredProducts() {
@@ -270,8 +284,7 @@ const app = new Vue({
       else {
         return this.products;
       }
-
-    },
+      },
 
     cartTotal() {
       let total = 0;

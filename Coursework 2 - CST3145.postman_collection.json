@@ -1,0 +1,268 @@
+{
+	"info": {
+		"_postman_id": "23de1bf9-1f1e-4932-a46a-e31821e2e006",
+		"name": "Coursework 2 - CST3145",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25468261"
+	},
+	"item": [
+		{
+			"name": "POST Products",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"id\": 13,\r\n        \"subject\": \"Test subject\",\r\n        \"location\": \"Test subject\",\r\n        \"price\": 250,\r\n        \"space\": 5,\r\n        \"image\": \"Test subject\",\r\n        \"cartquantity\": 0\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/collection/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"collection",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Orders",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n    \"subject\": \"TestSection\",\r\n    \"location\": \"Block 1, Class 108\",\r\n    \"price\": 425,\r\n    \"space\": 6,\r\n    \"image\": \"img/Math.jpg\",\r\n    \"cartquantity\": 0\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/collection/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"collection",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/collection/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"collection",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Orders by Location",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/collection/products/location/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"collection",
+						"products",
+						"location",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Orders by Price",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/collection/products/price/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"collection",
+						"products",
+						"price",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Orders by Subject",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/collection/products/subject/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"collection",
+						"products",
+						"subject",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Orders by Space Count",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/collection/products/space/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"collection",
+						"products",
+						"space",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/collection/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"collection",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/collection/products/63cf6d91525e307676897742",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"collection",
+						"products",
+						"63cf6d91525e307676897742"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product by Search",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/collection/products/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"collection",
+						"products",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product by ID",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n    \"cartquantity\": 2\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/collection/products/63e80f7a525530db071adb53",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"collection",
+						"products",
+						"63e80f7a525530db071adb53"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

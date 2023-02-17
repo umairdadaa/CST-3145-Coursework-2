@@ -5,7 +5,8 @@
   "main": "JS/app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "watch": "nodemon app.js"  },
+    "watch": "nodemon app.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/umairdadaa/CST-3145-CW2"
@@ -17,6 +18,8 @@
   },
   "homepage": "https://github.com/umairdadaa/CST-3145-CW2#readme",
   "dependencies": {
+    "bson": "^5.0.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mongodb": "^4.13.0",
